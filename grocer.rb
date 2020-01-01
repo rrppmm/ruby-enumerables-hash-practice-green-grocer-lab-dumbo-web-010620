@@ -1,13 +1,8 @@
 def consolidate_cart(cart)
   new_cart = {}
-  cart.each_with_index do |item, i|
-    item.each do |food, info|
-      if new_cart[food]
-        new_cart[food][:count] += 1
-      else new_cart[food] = info
-        new_cart[food][:count] += 1
-      end
-    end
+  
+  cart.each do |item|
+    
   end
   new_cart
 end
