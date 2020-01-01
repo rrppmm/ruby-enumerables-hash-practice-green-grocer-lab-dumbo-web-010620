@@ -15,26 +15,30 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-    new_hash = {}
-    cart.each do |vegetable, properties|
-      if !new_hash[vegetable]
-        new_hash[vegetable] = properties
+  hash = cart
+  coupons.each do |coupon_hash|
+    
+    item = coupon_hash[:item]
+
+    if !hash[item].nil? && hash[item][:count] >= coupon_hash[:num]
+      temp = {"#{item} W/COUPON" => {
+        :price => coupon_hash[:cost],
+        :clearance => hash[item][:clearance],
+        :count => 1
+        }
+      }
+      
+      if hash["#{item} W/COUPON"].nil?
+        hash.merge!(temp)
+      else
+        hash["#{item} W/COUPON"][:count] += 1
+        #hash["#{item} W/COUPON"][:price] += coupon_hash[:cost]
       end
-      coupons.each do |hash|
-        hash.each do |coupon_key, coupon_value|
-          if coupon_value == vegetable
-            if !new_hash["#{vegetable} W/COUPON"]
-              new_hash["#{vegetable} W/COUPON"] = {:price => hash[:cost], :clearance => cart[vegetable][:clearance], :count => 0}
-            end
-            if !(new_hash[vegetable][:count] < hash[:num])
-              new_hash[vegetable][:count] -= hash[:num]
-              new_hash["#{vegetable} W/COUPON"][:count] += 1
-            end
-          end
-        end
-      end
+      
+      hash[item][:count] -= coupon_hash[:num]
     end
-    new_hash
+  end
+  hash
 end
 
 def apply_clearance(cart)
