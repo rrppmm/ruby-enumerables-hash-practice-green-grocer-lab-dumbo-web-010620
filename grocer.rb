@@ -3,7 +3,7 @@ def consolidate_cart(cart)
   
   cart.each do |item|
     item.each do |k, v|
-      if !updated_cart[k]
+      if !new_cart[k]
         new_cart[k] = v
         new_cart[k][:count] = 1
       else
@@ -11,7 +11,7 @@ def consolidate_cart(cart)
       end
     end
   end
-  updated_cart
+  new_cart
 end
 
 def apply_coupons(cart, coupons)
