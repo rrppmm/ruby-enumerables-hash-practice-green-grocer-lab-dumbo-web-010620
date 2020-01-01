@@ -2,7 +2,7 @@ def consolidate_cart(cart)
   new_cart = {}
   
   cart.each do |item|
-    item_name = item
+    item_name = item.key
   end
   new_cart
 end
