@@ -1,6 +1,7 @@
 def consolidate_cart(cart)
   result = {}
-  cart.each_with_index
+  cart.each_with_index do |item, i|
+    
 end
 
 def apply_coupons(cart, coupons)
